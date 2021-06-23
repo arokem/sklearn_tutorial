@@ -104,13 +104,14 @@ def visualize_tree(estimator, X, y, boundaries=True,
     if boundaries:
         plot_boundaries(0, plt.xlim(), plt.ylim())
 
-
+        
 def plot_tree_interactive(X, y):
     from sklearn.tree import DecisionTreeClassifier
 
     def interactive_tree(depth=1):
         clf = DecisionTreeClassifier(max_depth=depth, random_state=0)
         visualize_tree(clf, X, y)
+        plt.show()
 
     from ipywidgets import interact
     return interact(interactive_tree, depth=(1, 5))
@@ -176,8 +177,8 @@ def plot_kmeans_interactive(min_clusters=1, max_clusters=6):
             elif frame % 3 == 2:
                 plt.text(3.8, 9.5, "2. Update centroids to cluster means",
                          ha='right', va='top', size=14)
-
-    
+            plt.show()
+            
     return interact(_kmeans_step, frame=(0, 50),
                     n_clusters=[min_clusters, max_clusters])
 
@@ -229,5 +230,6 @@ def plot_pca_interactive(data, n_components=6):
     def show_decomp(i=0):
         plot_image_components(data[i], Xproj[i],
                               pca.mean_, pca.components_)
+        plt.show()
     
     interact(show_decomp, i=(0, data.shape[0] - 1));
